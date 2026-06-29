@@ -125,10 +125,10 @@ nav button.active{color:var(--primary)}
     </div>
     <h3 style="font-size:15px;font-weight:600;margin-bottom:10px">练习模式</h3>
     <div class="card-grid">
-      <div class="card mode-card" onclick="startDictation(''word'')"><div class="mode-icon">📝</div><div class="mode-title">单词听写</div><div class="mode-sub">听发音，写出单词</div></div>
-      <div class="card mode-card" onclick="startDictation(''phrase'')"><div class="mode-icon">📖</div><div class="mode-title">短语听写</div><div class="mode-sub">逐词听写，强化记忆</div></div>
-      <div class="card mode-card" onclick="startDictation(''essay'')"><div class="mode-icon">🎯</div><div class="mode-title">精听训练</div><div class="mode-sub">短文逐句听写</div></div>
-      <div class="card mode-card" onclick="switchPage(''books'')"><div class="mode-icon">📚</div><div class="mode-title">词书中心</div><div class="mode-sub">选择词书开始练习</div></div>
+      <div class="card mode-card" onclick="startDictation('word')"><div class="mode-icon">📝</div><div class="mode-title">单词听写</div><div class="mode-sub">听发音，写出单词</div></div>
+      <div class="card mode-card" onclick="startDictation('phrase')"><div class="mode-icon">📖</div><div class="mode-title">短语听写</div><div class="mode-sub">逐词听写，强化记忆</div></div>
+      <div class="card mode-card" onclick="startDictation('essay')"><div class="mode-icon">🎯</div><div class="mode-title">精听训练</div><div class="mode-sub">短文逐句听写</div></div>
+      <div class="card mode-card" onclick="switchPage('books')"><div class="mode-icon">📚</div><div class="mode-title">词书中心</div><div class="mode-sub">选择词书开始练习</div></div>
     </div>
   </div>
   <!-- BOOKS -->
@@ -140,14 +140,14 @@ nav button.active{color:var(--primary)}
   <!-- DICTATION -->
   <div class="page" id="page-dictation">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <button class="btn btn-outline btn-sm" onclick="switchPage(''books'')">← 换词书</button>
+      <button class="btn btn-outline btn-sm" onclick="switchPage('books')">← 换词书</button>
       <span style="font-size:13px;color:var(--text2)" id="dictBookName"></span>
       <button class="btn btn-outline btn-sm" id="btnDictMode" onclick="cycleDictMode()">模式</button>
     </div>
     <div class="mode-chip-row" style="margin-bottom:12px">
-      <button class="mode-chip active" id="chipWord" onclick="setDictMode(''word'')">单词</button>
-      <button class="mode-chip" id="chipPhrase" onclick="setDictMode(''phrase'')">短语</button>
-      <button class="mode-chip" id="chipEssay" onclick="setDictMode(''essay'')">精听</button>
+      <button class="mode-chip active" id="chipWord" onclick="setDictMode('word')">单词</button>
+      <button class="mode-chip" id="chipPhrase" onclick="setDictMode('phrase')">短语</button>
+      <button class="mode-chip" id="chipEssay" onclick="setDictMode('essay')">精听</button>
     </div>
     <div class="player-card card">
       <div class="word-display" id="wordDisplay">准备开始</div>
@@ -197,11 +197,11 @@ nav button.active{color:var(--primary)}
   </div>
 </div>
 <nav>
-  <button class="active" id="navHome" onclick="switchPage(''home'')"><span class="icon">🏠</span>首页</button>
-  <button id="navBooks" onclick="switchPage(''books'')"><span class="icon">📚</span>词书</button>
-  <button id="navDict" onclick="switchPage(''dictation'')"><span class="icon">🎧</span>听写</button>
-  <button id="navReview" onclick="switchPage(''review'')"><span class="icon">📋</span>复习</button>
-  <button id="navSettings" onclick="switchPage(''settings'')"><span class="icon">⚙</span>设置</button>
+  <button class="active" id="navHome" onclick="switchPage('home')"><span class="icon">🏠</span>首页</button>
+  <button id="navBooks" onclick="switchPage('books')"><span class="icon">📚</span>词书</button>
+  <button id="navDict" onclick="switchPage('dictation')"><span class="icon">🎧</span>听写</button>
+  <button id="navReview" onclick="switchPage('review')"><span class="icon">📋</span>复习</button>
+  <button id="navSettings" onclick="switchPage('settings')"><span class="icon">⚙</span>设置</button>
 </nav>
 </div>
 <script>
