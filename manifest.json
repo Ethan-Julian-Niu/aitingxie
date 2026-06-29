@@ -1,15 +1,15 @@
 ﻿{
-  "name": "爱听写 · Dictation",
+  "name": "爱听写 - IELTS 听写练习",
   "short_name": "爱听写",
-  "description": "iPad 听写练习应用 - 提升听力与拼写能力",
-  "start_url": "index.html",
+  "description": "雅思听写练习 · 词书管理 · 错词复习 · 精听训练",
+  "start_url": "index.html?v=3",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#f0f4f8",
-  "theme_color": "#4A90D9",
+  "background_color": "#f8fafc",
+  "theme_color": "#4F46E5",
   "icons": [
     {"src": "icon-192.png","sizes": "192x192","type": "image/png"},
     {"src": "icon-512.png","sizes": "512x512","type": "image/png"}
   ],
-  "categories": ["education", "productivity"]
+  "categories": ["education"]
 }
