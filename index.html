@@ -495,7 +495,8 @@ dictPlay=function(){
 window.dictPlay=dictPlay;
 function renderQuizOptions(){
   var correct=DB.dictWord;
-  var meaning=DICT[correct.toLowerCase()]||'(无释义)';
+  var hasDict=DICT.hasOwnProperty(correct.toLowerCase());
+  var meaning=hasDict?DICT[correct.toLowerCase()]:correct;
   // Try confusable words first, then fall back to random
   var cl=CONF[correct.toLowerCase()]||[];
   var distractors=[];
@@ -503,8 +504,13 @@ function renderQuizOptions(){
   // Fill remaining with random from book
   var pool=DB.currentBook.words.filter(function(w){return w.toLowerCase()!==correct.toLowerCase();});
   shuffle(pool);
-  for(var pi=0;pi<pool.length&&distractors.length<3;pi++){var m2=DICT[pool[pi].toLowerCase()];if(m2&&m2!==meaning&&distractors.indexOf(m2)<0)distractors.push(m2)}
-  while(distractors.length<3){distractors.push('(无释义)');}
+  for(var pi=0;pi<pool.length&&distractors.length<3;pi++){
+    var pw=pool[pi].toLowerCase();
+    var m2=hasDict?(DICT[pw]||pw):pw;
+    if(m2&&m2!==meaning&&distractors.indexOf(m2)<0)distractors.push(m2);
+  }
+  // If still not enough, use word itself
+  while(distractors.length<3){distractors.push(pool[distractors.length]||'?');}
   var options=[{text:meaning,correct:true}];
   distractors.forEach(function(d){options.push({text:d,correct:false});});
   shuffle(options);
