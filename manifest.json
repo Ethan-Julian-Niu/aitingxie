@@ -1,8 +1,8 @@
 ﻿{
-  "name": "爱听写 - IELTS 听写练习",
+  "name": "爱听写 IELTS v5",
   "short_name": "爱听写",
-  "description": "雅思听写练习 · 词书管理 · 错词复习 · 精听训练",
-  "start_url": "index.html?v=3",
+  "description": "雅思听写·看词选意·听音选意·真题精听·遗忘曲线复习",
+  "start_url": "index.html?v=5",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#f8fafc",
