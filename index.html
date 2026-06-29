@@ -6,187 +6,89 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#4A90D9">
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json?v=2">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>爱听写 · Dictation</title>
+<title>爱听写 IELTS</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#f0f4f8;--surface:#fff;--text:#1a1a2e;--text2:#555;--primary:#4A90D9;
-  --primary-dark:#357ABD;--accent:#50C878;--danger:#E74C3C;--border:#dde4ed;
-  --radius:16px;--shadow:0 2px 12px rgba(0,0,0,.08);--font:system-ui,-apple-system,sans-serif;
-  --input-bg:#f7f9fc;--tag-bg:#e8f0fe;--tag-text:#2a5db0;
-}
-@media(prefers-color-scheme:dark){
-  :root{
-    --bg:#0f0f1a;--surface:#1a1a2e;--text:#e0e0e0;--text2:#999;
-    --primary:#5ba0e8;--primary-dark:#4a90d9;--accent:#50C878;--danger:#e74c3c;
-    --border:#2a2a3e;--shadow:0 2px 12px rgba(0,0,0,.4);
-    --input-bg:#252540;--tag-bg:#2a2a50;--tag-text:#8ab4f8;
-  }
-}
+:root{--bg:#f0f4f8;--surface:#fff;--text:#1a1a2e;--text2:#555;--primary:#4A90D9;--primary-dark:#357ABD;--accent:#50C878;--danger:#E74C3C;--border:#dde4ed;--radius:16px;--shadow:0 2px 12px rgba(0,0,0,.08);--font:system-ui,-apple-system,sans-serif;--input-bg:#f7f9fc;--tag-bg:#e8f0fe;--tag-text:#2a5db0}
+@media(prefers-color-scheme:dark){:root{--bg:#0f0f1a;--surface:#1a1a2e;--text:#e0e0e0;--text2:#999;--primary:#5ba0e8;--primary-dark:#4a90d9;--accent:#50C878;--danger:#e74c3c;--border:#2a2a3e;--shadow:0 2px 12px rgba(0,0,0,.4);--input-bg:#252540;--tag-bg:#2a2a50;--tag-text:#8ab4f8}}
 html,body{height:100%;overflow:hidden}
 body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex;flex-direction:column;-webkit-user-select:none;user-select:none}
-header{
-  background:var(--surface);padding:12px 20px;display:flex;align-items:center;
-  justify-content:space-between;border-bottom:1px solid var(--border);flex-shrink:0;
-  box-shadow:var(--shadow);z-index:10;
-}
-header h1{font-size:22px;font-weight:700;letter-spacing:-.5px;display:flex;align-items:center;gap:8px}
-header h1 span.emoji{font-size:26px}
+header{background:var(--surface);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-shrink:0;box-shadow:var(--shadow);z-index:10}
+header h1{font-size:22px;font-weight:700;display:flex;align-items:center;gap:8px}
 .header-actions{display:flex;gap:8px}
-.header-actions button{
-  background:var(--input-bg);border:1px solid var(--border);border-radius:10px;
-  padding:8px 14px;font-size:14px;cursor:pointer;color:var(--text);
-  transition:all .15s;font-family:var(--font);
-}
-.header-actions button:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
-.header-actions button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.header-actions button{background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:8px 14px;font-size:14px;cursor:pointer;color:var(--text);transition:all .15s;font-family:var(--font)}
+.header-actions button:hover,.header-actions button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
 main{flex:1;display:flex;overflow:hidden}
-.sidebar{
-  width:320px;background:var(--surface);border-right:1px solid var(--border);
-  display:flex;flex-direction:column;flex-shrink:0;
-}
+.sidebar{width:320px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
 .content{flex:1;display:flex;flex-direction:column;overflow-y:auto;padding:24px 32px}
-.tabs{display:flex;border-bottom:1px solid var(--border)}
-.tabs button{
-  flex:1;padding:12px;font-size:14px;font-weight:600;cursor:pointer;border:none;
-  background:transparent;color:var(--text2);font-family:var(--font);
-  transition:all .15s;border-bottom:2px solid transparent;
-}
+.tabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0}
+.tabs button{flex:1;padding:12px;font-size:14px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--text2);font-family:var(--font);transition:all .15s;border-bottom:2px solid transparent}
 .tabs button.active{color:var(--primary);border-bottom-color:var(--primary)}
 .tab-panel{flex:1;overflow-y:auto;padding:16px;display:none}
 .tab-panel.active{display:flex;flex-direction:column;gap:12px}
-.word-list{display:flex;flex-direction:column;gap:8px}
-.word-item{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 14px;background:var(--input-bg);border-radius:12px;
-  cursor:pointer;transition:all .15s;border:2px solid transparent;
-}
+.word-list{display:flex;flex-direction:column;gap:6px}
+.word-item{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--input-bg);border-radius:10px;cursor:pointer;transition:all .15s;border:2px solid transparent;font-size:14px}
 .word-item:hover{border-color:var(--border)}
 .word-item.selected{border-color:var(--primary);background:var(--tag-bg)}
-.word-item .word-text{font-size:15px;font-weight:500}
-.word-item .word-meta{font-size:12px;color:var(--text2)}
-.word-item .btn-del{
-  background:none;border:none;color:var(--danger);cursor:pointer;font-size:18px;
-  padding:4px 8px;border-radius:8px;opacity:.6;transition:all .15s;
-}
+.word-item .btn-del{background:none;border:none;color:var(--danger);cursor:pointer;font-size:16px;padding:2px 6px;border-radius:6px;opacity:.6;transition:all .15s}
 .word-item .btn-del:hover{opacity:1;background:rgba(231,76,60,.1)}
 .add-form{display:flex;gap:8px}
-.add-form input{
-  flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:12px;
-  font-size:15px;background:var(--input-bg);color:var(--text);font-family:var(--font);
-  outline:none;transition:border .15s;
-}
+.add-form input{flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:12px;font-size:15px;background:var(--input-bg);color:var(--text);font-family:var(--font);outline:none}
 .add-form input:focus{border-color:var(--primary)}
-.add-form button{
-  padding:10px 18px;background:var(--primary);color:#fff;border:none;
-  border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);
-  transition:all .15s;
-}
-.add-form button:hover{background:var(--primary-dark)}
+.add-form button,.btn-primary{padding:10px 18px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font)}
+.add-form button:hover,.btn-primary:hover{background:var(--primary-dark)}
 .empty-state{text-align:center;padding:32px 16px;color:var(--text2)}
 .empty-state .icon{font-size:40px;margin-bottom:8px}
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat-card{
-  background:var(--input-bg);border-radius:12px;padding:16px;text-align:center;
-}
+.stat-card{background:var(--input-bg);border-radius:12px;padding:16px;text-align:center}
 .stat-card .num{font-size:28px;font-weight:700;color:var(--primary)}
 .stat-card .label{font-size:13px;color:var(--text2);margin-top:4px}
-.dictation-area{display:flex;flex-direction:column;align-items:center;gap:28px;max-width:600px;margin:0 auto;width:100%}
+.dictation-area{display:flex;flex-direction:column;align-items:center;gap:24px;max-width:600px;margin:0 auto;width:100%}
 .mode-selector{display:flex;gap:8px}
-.mode-selector button{
-  padding:8px 18px;border-radius:20px;border:1px solid var(--border);
-  background:var(--surface);color:var(--text2);font-size:13px;cursor:pointer;
-  font-family:var(--font);transition:all .15s;
-}
+.mode-selector button{padding:8px 18px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text2);font-size:13px;cursor:pointer;font-family:var(--font);transition:all .15s}
 .mode-selector button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
-.current-word{
-  font-size:48px;font-weight:700;text-align:center;letter-spacing:2px;
-  min-height:72px;display:flex;align-items:center;justify-content:center;
-  color:var(--text);
-}
+.current-word{font-size:48px;font-weight:700;text-align:center;letter-spacing:2px;min-height:72px;display:flex;align-items:center;justify-content:center;color:var(--text)}
 .hint-area{font-size:14px;color:var(--text2);text-align:center;min-height:24px}
-.play-btn{
-  width:80px;height:80px;border-radius:50%;border:none;
-  background:var(--primary);color:#fff;font-size:36px;cursor:pointer;
-  box-shadow:0 4px 20px rgba(74,144,217,.4);transition:all .2s;
-  display:flex;align-items:center;justify-content:center;
-}
-.play-btn:hover{transform:scale(1.05);box-shadow:0 6px 28px rgba(74,144,217,.5)}
-.play-btn:active{transform:scale(.95)}
+.play-btn{width:80px;height:80px;border-radius:50%;border:none;background:var(--primary);color:#fff;font-size:36px;cursor:pointer;box-shadow:0 4px 20px rgba(74,144,217,.4);transition:all .2s;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+.play-btn:active{transform:scale(.95);background:var(--primary-dark)}
 .play-btn.playing{background:var(--accent)}
 .speed-ctrl{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text2)}
-.speed-ctrl button{
-  width:32px;height:32px;border-radius:50%;border:1px solid var(--border);
-  background:var(--surface);color:var(--text);font-size:18px;cursor:pointer;
-  font-family:var(--font);transition:all .15s;display:flex;align-items:center;justify-content:center;
-}
-.speed-ctrl button:hover{background:var(--input-bg)}
+.speed-ctrl button{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:18px;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center}
 .speed-val{font-weight:600;color:var(--primary);min-width:36px;text-align:center}
 .input-row{display:flex;gap:12px;width:100%}
-.input-row input{
-  flex:1;padding:14px 18px;border:2px solid var(--border);border-radius:14px;
-  font-size:20px;background:var(--input-bg);color:var(--text);font-family:var(--font);
-  outline:none;transition:border .15s;text-align:center;
-}
+.input-row input{flex:1;padding:14px 18px;border:2px solid var(--border);border-radius:14px;font-size:20px;background:var(--input-bg);color:var(--text);font-family:var(--font);outline:none;text-align:center}
 .input-row input:focus{border-color:var(--primary)}
 .input-row input.correct{border-color:var(--accent);background:rgba(80,200,120,.08)}
 .input-row input.wrong{border-color:var(--danger);background:rgba(231,76,60,.08)}
-.input-row button{
-  padding:14px 28px;background:var(--accent);color:#fff;border:none;
-  border-radius:14px;font-size:16px;font-weight:600;cursor:pointer;font-family:var(--font);
-  transition:all .15s;white-space:nowrap;
-}
-.input-row button:hover{opacity:.9;transform:scale(1.02)}
-.result-toast{
-  position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:100;
-  padding:12px 28px;border-radius:14px;font-size:16px;font-weight:600;
-  color:#fff;animation:slideDown .3s ease;pointer-events:none;
-}
+.input-row button{padding:14px 28px;background:var(--accent);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer;font-family:var(--font);white-space:nowrap}
+.result-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:100;padding:12px 28px;border-radius:14px;font-size:16px;font-weight:600;color:#fff;animation:slideDown .3s ease;pointer-events:none}
 .result-toast.correct{background:var(--accent)}
 .result-toast.wrong{background:var(--danger)}
 @keyframes slideDown{from{opacity:0;transform:translateX(-50%) translateY(-20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-.progress-bar{
-  width:100%;height:6px;background:var(--input-bg);border-radius:3px;overflow:hidden;
-}
+.progress-bar{width:100%;height:6px;background:var(--input-bg);border-radius:3px;overflow:hidden}
 .progress-fill{height:100%;background:var(--primary);border-radius:3px;transition:width .3s}
-.progress-text{font-size:13px;color:var(--text2);text-align:center;margin-top:4px}
+.progress-text{font-size:13px;color:var(--text2);text-align:center}
 .count-selector{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text2)}
-.count-selector select{
-  padding:6px 12px;border:1px solid var(--border);border-radius:8px;
-  font-size:14px;background:var(--surface);color:var(--text);font-family:var(--font);
-  cursor:pointer;
-}
+.count-selector select{padding:6px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:var(--surface);color:var(--text);font-family:var(--font);cursor:pointer}
 .history-list{display:flex;flex-direction:column;gap:6px}
-.history-item{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:8px 12px;background:var(--input-bg);border-radius:10px;font-size:13px;
-}
+.history-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--input-bg);border-radius:10px;font-size:13px}
 .history-item .date{color:var(--text2)}
 .history-item .score{font-weight:600}
 .history-item .score.good{color:var(--accent)}
 .history-item .score.bad{color:var(--danger)}
-@media(max-width:768px){
-  main{flex-direction:column}
-  .sidebar{width:100%;max-height:40%;border-right:none;border-bottom:1px solid var(--border)}
-  .content{padding:16px}
-  .current-word{font-size:36px;min-height:56px}
-  .play-btn{width:64px;height:64px;font-size:28px}
-  .input-row input{font-size:18px;padding:12px 16px}
-}
-@media(max-width:480px){
-  header h1{font-size:18px}
-  .content{padding:12px}
-  .current-word{font-size:28px;min-height:44px}
-  .input-row{flex-direction:column}
-  .input-row button{width:100%}
-}
+.loading{text-align:center;padding:40px;color:var(--text2)}
+.loading .spinner{display:inline-block;width:40px;height:40px;border:4px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#errorMsg{display:none;text-align:center;padding:20px;color:var(--danger);font-size:14px}
+@media(max-width:768px){main{flex-direction:column}.sidebar{width:100%;max-height:40%;border-right:none;border-bottom:1px solid var(--border)}.content{padding:16px}.current-word{font-size:36px;min-height:56px}.play-btn{width:64px;height:64px;font-size:28px}.input-row input{font-size:18px;padding:12px 16px}}
+@media(max-width:480px){.content{padding:12px}.current-word{font-size:28px;min-height:44px}.input-row{flex-direction:column}.input-row button{width:100%}}
 </style>
 </head>
 <body>
 <header>
-  <h1><span class="emoji">🎧</span>爱听写</h1>
+  <h1>🎧 爱听写 <span style="font-size:13px;color:var(--text2);font-weight:400">IELTS 王陆语料库</span></h1>
   <div class="header-actions">
     <button id="btnLibrary" class="active" onclick="switchTab('library')">📚 词库</button>
     <button id="btnStats" onclick="switchTab('stats')">📊 统计</button>
@@ -195,54 +97,53 @@ main{flex:1;display:flex;overflow:hidden}
 <main>
   <aside class="sidebar" id="sidebarLibrary">
     <div class="tabs">
-      <button class="active" onclick="switchSidebarTab('list')">词条列表</button>
-      <button onclick="switchSidebarTab('add')">添加词条</button>
+      <button class="active" id="tabListBtn" onclick="switchSidebarTab('list')">词条列表</button>
+      <button id="tabAddBtn" onclick="switchSidebarTab('add')">添加词条</button>
     </div>
     <div class="tab-panel active" id="panel-list">
-      <div style="display:flex;justify-content:space-between;align-items:center">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:0 0 8px;flex-shrink:0">
         <span style="font-size:13px;color:var(--text2)">共 <strong id="wordCount">0</strong> 条</span>
         <button onclick="selectAll()" style="font-size:12px;background:none;border:none;color:var(--primary);cursor:pointer;font-family:var(--font)">全选</button>
       </div>
       <div class="word-list" id="wordList">
-        <div class="empty-state"><div class="icon">📝</div><p>还没有词条<br>去添加一些吧！</p></div>
+        <div class="loading"><div class="spinner"></div><p style="margin-top:12px">加载词库中...</p></div>
       </div>
     </div>
     <div class="tab-panel" id="panel-add">
       <div class="add-form">
-        <input type="text" id="newWordInput" placeholder="输入新词条（英文/中文/拼音）" onkeydown="if(event.key==='Enter')addWord()">
+        <input type="text" id="newWordInput" placeholder="输入新词条（英文/中文）">
         <button onclick="addWord()">添加</button>
       </div>
-      <p style="font-size:12px;color:var(--text2)">支持批量导入，用逗号或换行分隔多个词条</p>
-      <textarea id="bulkInput" rows="4" placeholder="或者在这里粘贴多个词条，每行一个或用逗号分隔..." style="width:100%;padding:10px;border:1px solid var(--border);border-radius:12px;font-size:14px;background:var(--input-bg);color:var(--text);font-family:var(--font);resize:vertical;margin-top:8px"></textarea>
-      <button onclick="bulkAdd()" style="width:100%;padding:10px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font)">批量导入</button>
+      <textarea id="bulkInput" rows="4" placeholder="批量粘贴，每行一个或用逗号分隔" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:12px;font-size:14px;background:var(--input-bg);color:var(--text);font-family:var(--font);resize:vertical;margin-top:8px"></textarea>
+      <button class="btn-primary" onclick="bulkAdd()" style="width:100%">批量导入</button>
+      <button class="btn-primary" onclick="resetToDefault()" style="width:100%;background:var(--text2);margin-top:4px">恢复默认词库</button>
+      <div id="errorMsg"></div>
     </div>
   </aside>
   <aside class="sidebar" id="sidebarStats" style="display:none">
     <div style="padding:16px;display:flex;flex-direction:column;gap:16px;overflow-y:auto">
       <div class="stats-grid">
-        <div class="stat-card"><div class="num" id="statTotal">0</div><div class="label">总练习次数</div></div>
+        <div class="stat-card"><div class="num" id="statTotal">0</div><div class="label">练习次数</div></div>
         <div class="stat-card"><div class="num" id="statAvg">-</div><div class="label">平均正确率</div></div>
         <div class="stat-card"><div class="num" id="statBest">0</div><div class="label">最佳记录</div></div>
         <div class="stat-card"><div class="num" id="statWords">0</div><div class="label">词库数量</div></div>
       </div>
       <h3 style="font-size:15px">最近记录</h3>
-      <div class="history-list" id="historyList">
-        <div class="empty-state" style="padding:20px"><div class="icon">📋</div><p>还没有练习记录</p></div>
-      </div>
+      <div class="history-list" id="historyList"><div class="empty-state"><div class="icon">📋</div><p>还没有练习记录</p></div></div>
       <button onclick="clearHistory()" style="padding:8px;background:transparent;border:1px solid var(--danger);color:var(--danger);border-radius:10px;cursor:pointer;font-family:var(--font);font-size:13px">清除记录</button>
     </div>
   </aside>
   <section class="content">
     <div class="dictation-area">
       <div class="mode-selector">
-        <button class="active" onclick="setMode('word')">单词模式</button>
-        <button onclick="setMode('phrase')">短语模式</button>
-        <button onclick="setMode('random')">随机模式</button>
+        <button class="active" id="modeWord" onclick="setMode('word')">单词模式</button>
+        <button id="modePhrase" onclick="setMode('phrase')">短语模式</button>
+        <button id="modeRandom" onclick="setMode('random')">随机模式</button>
       </div>
-      <div class="current-word" id="currentWordDisplay"></div>
+      <div class="current-word" id="currentWordDisplay">准备开始</div>
       <div class="hint-area" id="hintArea"></div>
       <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-      <div class="progress-text" id="progressText">准备开始</div>
+      <div class="progress-text" id="progressText">点击 ▶ 开始练习</div>
       <button class="play-btn" id="playBtn" onclick="playAudio()">▶</button>
       <div class="speed-ctrl">
         <button onclick="changeSpeed(-0.1)">−</button>
@@ -259,105 +160,97 @@ main{flex:1;display:flex;overflow:hidden}
         </select>
       </div>
       <div class="input-row">
-        <input type="text" id="answerInput" placeholder="输入你听到的内容..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" onkeydown="if(event.key==='Enter')checkAnswer()">
+        <input type="text" id="answerInput" placeholder="输入你听到的内容..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
         <button onclick="checkAnswer()">✓ 检查</button>
       </div>
     </div>
   </section>
 </main>
 <script>
+(function(){
 'use strict';
-var words=[];
-var currentSession=[];
-var currentIndex=-1;
-var currentWord='';
-var score=0;
-var total=0;
-var speed=1.0;
-var mode='word';
-var history=JSON.parse(localStorage.getItem('dictation_history')||'[]');
-var isSpeaking=false;
+var words=[],currentSession=[],currentIndex=-1,currentWord='',score=0,total=0,speed=1.0,mode='word',isSpeaking=false;
+var history=JSON.parse(localStorage.getItem('dh')||'[]');
+var DEFAULT_WORDS_URL='words.json?v=2';
 
-function init(){
-  words=JSON.parse(localStorage.getItem('dictation_words')||'[]');
-  if(words.length===0){
-    words=["accommodation", "appointment", "assessment", "assignment", "atmosphere", "attendance", "authority", "availability", "bachelor", "balcony", "barbecue", "beverage", "bibliography", "biography", "blanket", "brochure", "budget", "cafeteria", "candidate", "caravan", "carpet", "cassette", "catalogue", "certificate", "chancellor", "chimney", "colleague", "commencement", "committee", "companion", "compensation", "complaint", "component", "concentration", "concession", "congratulation", "conservation", "construction", "consultant", "contribution", "convenience", "cooperation", "corporation", "counsellor", "craft", "criticism", "curriculum", "decoration", "demonstration", "dentist", "departure", "deposit", "destination", "deterioration", "development", "dictionary", "diploma", "discipline", "discount", "dissertation", "distraction", "documentary", "dormitory", "drought", "duration", "economy", "editor", "electrician", "embassy", "emergency", "employment", "encouragement", "engineering", "environment", "equipment", "establishment", "evaluation", "exhibition", "expectation", "expedition", "experiment", "extension", "facility", "faculty", "feedback", "fireplace", "flexibility", "fluctuation", "foundation", "fountain", "furniture", "gallery", "garage", "geography", "government", "guarantee", "guidance", "handicraft", "harbour", "headquarters", "helicopter", "hospitality", "household", "hurricane", "hydrogen", "identification", "illustration", "immigration", "indication", "industry", "institution", "instruction", "insurance", "interpretation", "investigation", "irrigation", "journalist", "kindergarten", "knowledge", "laboratory", "landmark", "landscape", "leadership", "legislation", "librarian", "lightning", "literature", "luggage", "machinery", "magazine", "maintenance", "manufacturer", "measurement", "mechanism", "membership", "microphone", "migration", "millennium", "mineral", "motivation", "mountain", "multimedia", "navigation", "necessity", "negotiation", "neighbourhood", "newsletter", "nightmare", "observation", "obstacle", "occupation", "opportunity", "organisation", "orientation", "originality", "oxygen", "parliament", "participant", "partnership", "passenger", "pedestrian", "personality", "philosophy", "photography", "physician", "platform", "politician", "population", "possession", "prescription", "presentation", "preservation", "priority", "procedure", "profession", "proficiency", "programme", "psychology", "publication", "qualification", "questionnaire", "radiation", "reception", "recognition", "recommendation", "refrigerator", "registration", "regulation", "rehabilitation", "relationship", "religion", "renovation", "repetition", "replacement", "representative", "reputation", "requirement", "reservation", "residence", "restaurant", "restriction", "revision", "scholarship", "secretary", "signature", "similarity", "simplicity", "situation", "specialist", "specimen", "sponsorship", "statement", "statistic", "strategy", "suburb", "supervisor", "supplement", "surroundings", "survival", "syllabus", "sympathy", "technician", "technology", "temperature", "tendency", "thermometer", "timetable", "toothpaste", "transaction", "translation", "transparency", "treatment", "undergraduate", "unemployment", "university", "vacuum", "variety", "vegetarian", "ventilation", "veterinarian", "visibility", "vitamin", "volcano", "volunteer", "warehouse", "waterfall", "workshop", "abandoned", "absorbed", "abstract", "abundant", "academic", "acceptable", "accessible", "accomplished", "accurate", "acknowledged", "adequate", "adjustable", "admirable", "advanced", "affordable", "aggressive", "agricultural", "alarming", "alternative", "ambiguous", "ambitious", "analogous", "annoying", "anonymous", "anticipated", "anxious", "appropriate", "approximate", "archaeological", "architectural", "artificial", "atmospheric", "attentive", "automatic", "available", "balanced", "bankrupt", "beneficial", "bilingual", "biographical", "bureaucratic", "capable", "cautious", "challenging", "characteristic", "chronological", "classical", "cognitive", "collaborative", "commercial", "committed", "comparable", "compatible", "competent", "competitive", "complementary", "comprehensive", "compulsory", "concentrated", "confident", "confidential", "conscious", "consecutive", "conservative", "considerable", "consistent", "constructive", "contemporary", "controversial", "convenient", "conventional", "cooperative", "coordinated", "corporate", "courageous", "creative", "credible", "crucial", "cultivated", "cumulative", "decisive", "dedicated", "defective", "defensive", "deficient", "definite", "democratic", "demonstrative", "dense", "dependable", "desperate", "destructive", "determined", "devoted", "different", "digital", "diplomatic", "disabled", "disastrous", "discouraging", "dismissive", "distinctive", "distinguished", "diverse", "domestic", "dominant", "dramatic", "drastic", "durable", "dynamic", "ecological", "economic", "economical", "educational", "effective", "efficient", "elaborate", "electoral", "electronic", "elementary", "eligible", "emotional", "empirical", "encouraging", "energetic", "enormous", "enthusiastic", "entrepreneurial", "environmental", "equivalent", "essential", "ethical", "ethnic", "eventual", "evident", "evolutionary", "exaggerated", "excellent", "exceptional", "excessive", "exclusive", "exhaustive", "experienced", "experimental", "explicit", "explosive", "extensive", "extraordinary", "extravagant", "extreme", "fabulous", "familiar", "fascinating", "favourable", "feasible", "federal", "feminine", "fertile", "fictional", "financial", "flexible", "forecast", "foreseeable", "formidable", "fragile", "frequent", "frustrating", "fundamental", "generous", "genuine", "geographical", "global", "gradual", "grateful", "guilty", "harmonious", "hazardous", "hesitant", "hierarchical", "hilarious", "historical", "horizontal", "hospitable", "hostile", "hygienic", "identical", "ignorant", "illegible", "illiterate", "illustrative", "imaginary", "imaginative", "immediate", "immense", "impersonal", "implicit", "impressive", "inaccessible", "inadequate", "inappropriate", "incapable", "incentive", "inclusive", "incompetent", "inconsistent", "inconvenient", "incredible", "indefinite", "independent", "indifferent", "indigenous", "indispensable", "individual", "industrial", "inestimable", "inevitable", "inexpensive", "influential", "informative", "ingenious", "inhabitable", "initial", "initiative", "innocent", "innovative", "insignificant", "instantaneous", "instinctive", "instrumental", "insufficient", "intellectual", "intelligent", "intensive", "interactive", "interchangeable", "intermediate", "internal", "international", "interpretive", "intolerable", "introductory", "invaluable", "investigative", "invisible", "involved", "irrelevant", "irresistible", "irresponsible", "irreversible", "isolated", "judicial", "justifiable", "juvenile", "knowledgeable", "laborious", "legislative", "legitimate", "leisurely", "liberal", "limited", "linguistic", "literate", "logical", "luxurious", "magnetic", "magnificent", "manageable", "mandatory", "manipulative", "marginal", "marvellous", "masculine", "massive", "mathematical", "meaningful", "mechanical", "memorable", "merchant", "metallic", "methodological", "meticulous", "migratory", "military", "minimal", "minimum", "miserable", "misleading", "mobile", "moderate", "monetary", "monotonous", "municipal", "musical", "mysterious", "narrative", "national", "negotiable", "neutral", "noticeable", "numerous", "nutritional", "objective", "obligatory", "observable", "occasional", "occupational", "offensive", "official", "operational", "opportune", "optimistic", "optional", "organic", "organisational", "original", "orthodox", "outstanding", "overall", "overdue", "overwhelming", "painful", "parallel", "partial", "passionate", "patriotic", "peaceful", "peculiar", "penetrating", "perceptible", "perceptive", "permanent", "permissible", "persistent", "personal", "personnel", "persuasive", "phenomenal", "philosophical", "photographic", "physical", "physiological", "plausible", "pleasant", "pointless", "poisonous", "political", "populous", "portable", "potential", "powerful", "practical", "precautionary", "precious", "precise", "predictable", "predominant", "preferable", "pregnant", "prehistoric", "prejudiced", "preliminary", "premature", "preparatory", "presidential", "prestigious", "presumable", "prevalent", "preventable", "primitive", "principal", "probable", "problematic", "productive", "professional", "proficient", "profitable", "progressive", "prominent", "promising", "proportional", "prospective", "protective", "provincial", "provisional", "provocative", "psychological", "punctual", "qualitative", "quantitative", "radical", "random", "rapid", "rational", "realistic", "reasonable", "receptive", "reciprocal", "reckless", "recreational", "redundant", "reflective", "refreshing", "regional", "regrettable", "regulatory", "reinforced", "relative", "relevant", "reliable", "religious", "reluctant", "remarkable", "repetitive", "reptile", "republican", "reputable", "resident", "residential", "resistant", "respectable", "respective", "responsible", "responsive", "restless", "restricted", "revelation", "revolutionary", "rewarding", "ridiculous", "rigorous", "rival", "romantic", "satisfactory", "scandalous", "sceptical", "scientific", "seasonal", "secondary", "selective", "sensitive", "separate", "sequential", "shallow", "significant", "simplistic", "simultaneous", "sincere", "situated", "skeptical", "sociable", "solar", "sophisticated", "spacious", "specialised", "spectacular", "spiritual", "spontaneous", "statistical", "strategic", "structural", "subjective", "subordinate", "subsequent", "substantial", "substitutable", "successful", "sufficient", "suitable", "superficial", "superior", "supportive", "surgical", "surplus", "surprising", "surrounding", "suspicious", "sustainable", "symbolic", "sympathetic", "symptomatic", "synthetic", "systematic", "tactical", "taxable", "technical", "technological", "temporary", "tempting", "tender", "terminal", "terrestrial", "territorial", "theatrical", "theological", "theoretical", "therapeutic", "thoughtful", "threatening", "tolerable", "tolerant", "traditional", "transferable", "transparent", "tremendous", "tropical", "troublesome", "typical", "ultimate", "unanimous", "unavoidable", "unbearable", "unbelievable", "unbiased", "uncertain", "uncomfortable", "unconscious", "unconventional", "undeniable", "underdeveloped", "understandable", "undesirable", "unemployed", "unexpected", "unexplored", "unfamiliar", "unforgettable", "unfortunate", "unique", "universal", "unjust", "unlawful", "unnecessary", "unpleasant", "unprecedented", "unpredictable", "unrealistic", "unreasonable", "unreliable", "unsatisfactory", "unstable", "unsuitable", "unsustainable", "unthinkable", "unusual", "unwilling", "urban", "urgent", "utmost", "vacant", "vague", "valid", "valuable", "variable", "vast", "vehicular", "verbal", "versatile", "vertical", "viable", "vigorous", "violent", "virtual", "visible", "visual", "vital", "vocational", "voluntary", "vulnerable", "abolish", "absorb", "accelerate", "accommodate", "accompany", "accomplish", "accumulate", "achieve", "acknowledge", "acquire", "adapt", "address", "adjust", "administer", "adopt", "advocate", "afford", "aggravate", "allocate", "alter", "analyse", "announce", "anticipate", "applaud", "apply", "appoint", "appreciate", "approach", "approve", "arise", "arouse", "arrange", "assemble", "assess", "assign", "assist", "associate", "assume", "assure", "attach", "attain", "attempt", "attend", "attribute", "authorise", "balance", "ban", "behave", "believe", "benefit", "blame", "boost", "broadcast", "calculate", "capture", "categorise", "certify", "characterise", "circulate", "clarify", "classify", "coincide", "collaborate", "collapse", "commence", "communicate", "compensate", "compete", "compile", "complement", "complete", "complicate", "comply", "compose", "comprehend", "comprise", "compromise", "conceal", "concede", "conceive", "concentrate", "conclude", "conduct", "confess", "confine", "confirm", "conflict", "conform", "confront", "congratulate", "conquer", "consent", "conserve", "consist", "consolidate", "constitute", "construct", "consult", "consume", "contact", "contaminate", "contemplate", "contend", "contract", "contradict", "contrast", "contribute", "contrive", "convert", "convey", "convince", "cooperate", "coordinate", "cope", "correlate", "correspond", "counsel", "counteract", "cultivate", "curb", "debate", "decline", "decorate", "dedicate", "deduce", "define", "delegate", "delete", "deliberate", "deliver", "demonstrate", "denote", "deny", "depict", "deplete", "deploy", "depress", "derive", "descend", "deserve", "designate", "deter", "deteriorate", "determine", "devastate", "devise", "devote", "diagnose", "dictate", "differentiate", "diffuse", "diminish", "discharge", "disclose", "discourage", "discriminate", "dismiss", "dispense", "displace", "display", "dispose", "dispute", "disregard", "disrupt", "dissolve", "distinguish", "distort", "distract", "distribute", "diversify", "document", "dominate", "donate", "draft", "drain", "dramatise", "duplicate", "dwell", "eliminate", "embark", "embody", "emerge", "emigrate", "emit", "emphasise", "employ", "empower", "enable", "enclose", "encounter", "endeavour", "endorse", "endure", "enforce", "engage", "enhance", "enlarge", "enlighten", "enquire", "enrich", "enrol", "ensure", "entail", "enterprise", "entertain", "envisage", "equip", "erode", "escalate", "establish", "estimate", "evaluate", "evoke", "evolve", "exaggerate", "examine", "exceed", "exclude", "execute", "exemplify", "exert", "exhaust", "exhibit", "expand", "expel", "expire", "exploit", "explore", "export", "expose", "extend", "extract", "facilitate", "fascinate", "finance", "flourish", "fluctuate", "formulate", "foster", "frustrate", "fulfil", "function", "fund", "furnish", "generate", "govern", "graduate", "grant", "grasp", "halt", "handle", "harness", "heighten", "hesitate", "highlight", "homogenise", "identify", "ignite", "illuminate", "illustrate", "immerse", "immigrate", "impact", "impair", "implement", "implicate", "imply", "import", "impose", "impoverish", "improvise", "inaugurate", "incorporate", "indicate", "induce", "infer", "inflate", "influence", "inhabit", "inherit", "inhibit", "initiate", "inject", "innovate", "insert", "inspect", "inspire", "install", "institute", "instruct", "insulate", "integrate", "intend", "interact", "intercept", "interfere", "interpret", "interrupt", "intersect", "intervene", "intimidate", "introduce", "invade", "invent", "invest", "investigate", "invoke", "involve", "irrigate", "isolate", "justify", "launch", "legislate", "liberalise", "liberate", "locate", "magnify", "maintain", "manipulate", "manufacture", "maximise", "mediate", "memorise", "merge", "migrate", "militarise", "minimise", "mobilise", "modify", "monitor", "motivate", "navigate", "necessitate", "negotiate", "neutralise", "nominate", "normalise", "notify", "nurture", "oblige", "observe", "obstruct", "obtain", "occupy", "offend", "operate", "oppose", "optimise", "orchestrate", "organise", "orient", "originate", "outline", "outweigh", "overcome", "overlap", "overlook", "overwhelm", "participate", "patent", "patronise", "penalise", "penetrate", "perceive", "perpetuate", "persevere", "persist", "personalise", "petition", "plague", "plead", "pledge", "plummet", "plunder", "polarise", "pollute", "portray", "postpone", "precede", "predetermine", "predict", "predominate", "prejudice", "prescribe", "preserve", "preside", "presume", "prevail", "prevent", "prioritise", "probe", "proceed", "proclaim", "prohibit", "project", "prolong", "promote", "prompt", "propagate", "propose", "prosecute", "prosper", "protest", "provide", "provoke", "publicise", "publish", "punctuate", "pursue", "qualify", "quantify", "quote", "rationalise", "realise", "reassure", "rebell", "recede", "reckon", "recognise", "recommend", "reconcile", "reconstruct", "recruit", "rectify", "recycle", "redistribute", "refine", "reform", "refrain", "refresh", "refund", "refuse", "refute", "regulate", "reinforce", "reiterate", "relate", "relieve", "relocate", "rely", "remedy", "renovate", "repeal", "replenish", "represent", "reproduce", "resemble", "reserve", "reside", "resign", "resist", "resolve", "resort", "restore", "restrain", "restrict", "retain", "retaliate", "retire", "retreat", "retrieve", "reveal", "revere", "reverse", "revise", "revitalise", "revive", "revolutionise", "ridicule", "rotate", "sacrifice", "safeguard", "sanction", "saturate", "scrutinise", "secrete", "segregate", "seize", "simulate", "situate", "solicit", "soothe", "specialise", "specify", "speculate", "stabilise", "standardise", "starve", "stimulate", "stipulate", "strengthen", "strive", "submerge", "submit", "subscribe", "subsidise", "substitute", "succeed", "suffice", "summarise", "supervise", "suppress", "surge", "surpass", "surrender", "surround", "survive", "suspect", "suspend", "sustain", "symbolise", "sympathise", "synchronise", "synthesise", "tackle", "tempt", "terminate", "terrify", "testify", "threaten", "tolerate", "transfer", "transform", "transit", "transmit", "transplant", "trigger", "undergo", "undermine", "undertake", "unify", "unleash", "uphold", "upset", "urbanise", "urge", "utilise", "utter", "vacate", "vaccinate", "validate", "vanish", "verify", "vibrate", "violate", "visualise", "vouch", "waive", "warrant", "withdraw", "withhold", "withstand", "witness", "worsen", "wreck", "advantage", "disadvantage", "drawback", "merit", "demerit", "consequently", "therefore", "hence", "thus", "accordingly", "furthermore", "moreover", "additionally", "besides", "meanwhile", "nevertheless", "nonetheless", "however", "although", "despite", "regarding", "concerning", "pertaining", "associated", "suggest", "limit", "constrain", "hinder", "alleviate", "mitigate", "ease", "reduce", "exacerbate", "intensify", "inescapable", "imperative", "practicable", "achievable", "attainable", "debatable", "contentious", "disputable", "thorough", "widespread", "ubiquitous", "pervasive", "varied", "multifaceted", "heterogeneous", "manifold", "ample", "plentiful", "detrimental", "harmful", "damaging", "adverse", "negative", "pressing", "critical", "paramount", "profound", "doubtful", "cynical", "positive", "hopeful", "upbeat", "pessimistic", "gloomy", "bleak", "inequality", "disparity", "gap", "divide", "imbalance", "globalisation", "urbanisation", "industrialisation", "modernisation", "digitalisation", "sustainability", "protection", "innovation", "breakthrough", "advancement", "progress", "phenomenon", "trend", "pattern", "shift", "absolutely", "definitely", "certainly", "obviously", "apparently", "basically", "essentially", "fundamentally", "generally", "typically", "personally", "honestly", "frankly", "actually", "literally", "particularly", "especially", "specifically", "notably", "remarkably", "intriguing", "captivating", "appealing", "compelling", "comfortable", "enjoyable", "delightful", "demanding", "difficult", "tough", "arduous", "fulfilling", "satisfying", "gratifying", "worthwhile", "keen", "eager", "ambience", "setting", "perspective", "viewpoint", "outlook", "standpoint", "opinion", "possibility", "prospect", "chance", "experience", "adventure", "journey", "exploration", "discovery", "culture", "tradition", "custom", "heritage", "lifestyle", "cuisine", "delicacy", "speciality", "flavour", "ingredient", "architecture", "scenery", "panorama", "stunning", "breathtaking", "relaxing", "soothing", "calming", "tranquil", "vibrant", "lively", "bustling", "nostalgic", "sentimental", "touching", "moving", "service", "amenity", "transportation", "commuting", "traffic", "congestion", "accessibility", "device", "gadget", "application", "celebration", "festival", "occasion", "ceremony", "gathering", "achievement", "accomplishment", "milestone", "success", "friendship", "companionship", "bond", "connection", "character", "temperament", "trait", "quality", "responsibility", "obligation", "commitment", "duty", "accountability", "landlord", "tenant", "lease", "rent", "furnished", "unfurnished", "utilities", "downtown", "apartment", "garden", "kitchen", "bathroom", "laundry", "heating", "air conditioning", "insulation", "inspection", "passport", "visa", "customs", "suitcase", "backpack", "itinerary", "arrival", "boarding", "check-in", "cancellation", "sightseeing", "excursion", "currency", "exchange", "consulate", "jet lag", "campus", "lecture", "tutorial", "seminar", "library", "reference", "plagiarism", "deadline", "thesis", "postgraduate", "examination", "enrollment", "graduation", "resume", "interview", "internship", "probation", "promotion", "salary", "bonus", "commission", "pension", "redundancy", "resignation", "dismissal", "overtime", "account", "savings", "withdrawal", "interest", "mortgage", "loan", "overdraft", "instalment", "expenditure", "revenue", "investment", "stock", "share", "dividend", "portfolio", "premium", "tax", "pharmacy", "surgeon", "diagnosis", "symptom", "allergy", "infection", "inflammation", "antibiotic", "vaccination", "therapy", "nutrition", "diet", "exercise", "insomnia", "depression", "anxiety", "dosage", "checkup", "pollution", "emission", "carbon", "climate", "ecosystem", "biodiversity", "deforestation", "desertification", "extinction", "species", "habitat", "renewable", "recycling", "landfill", "compost", "flood", "earthquake", "supermarket", "receipt", "bargain", "warranty", "delivery", "purchase", "consumer", "retail", "wholesale", "merchandise", "inventory", "advertisement", "brand", "cashier", "canteen", "buffet", "recipe", "vegan", "appetite", "refreshment", "starter", "dessert", "tip", "takeaway", "catering", "banquet"];
-    saveWords();
-  }
-  renderWordList();
-  renderHistory();
-  updateStats();
-  prepareSession();
-  updateSpeedDisplay();
+function err(msg){var e=document.getElementById('errorMsg');if(e){e.style.display='block';e.textContent='⚠ '+msg}}
+
+function loadWords(){
+  words=JSON.parse(localStorage.getItem('dw')||'[]');
+  if(words.length>0){onWordsReady();return}
+  var xhr=new XMLHttpRequest();
+  xhr.open('GET',DEFAULT_WORDS_URL,true);
+  xhr.onload=function(){
+    if(xhr.status===200){
+      try{words=JSON.parse(xhr.responseText)}catch(e){err('词库解析失败');return}
+      if(words.length===0){err('词库为空');return}
+      localStorage.setItem('dw',JSON.stringify(words));
+      onWordsReady();
+    }else{err('词库加载失败 HTTP '+xhr.status)}
+  };
+  xhr.onerror=function(){err('网络错误，无法加载词库。请检查网络后刷新页面。')};
+  xhr.send();
 }
-function saveWords(){localStorage.setItem('dictation_words',JSON.stringify(words))}
-function saveHistory(){localStorage.setItem('dictation_history',JSON.stringify(history))}
+function onWordsReady(){
+  renderWordList();updateStats();prepareSession();updateSpeedDisplay();
+}
+function saveWords(){localStorage.setItem('dw',JSON.stringify(words))}
+function saveHistory(){localStorage.setItem('dh',JSON.stringify(history))}
+function resetToDefault(){localStorage.removeItem('dw');words=[];document.getElementById('wordList').innerHTML='<div class="loading"><div class="spinner"></div><p style="margin-top:12px">重新加载词库...</p></div>';loadWords()}
 
 function renderWordList(){
   var el=document.getElementById('wordList');
   document.getElementById('wordCount').textContent=words.length;
   if(words.length===0){el.innerHTML='<div class="empty-state"><div class="icon">📝</div><p>还没有词条<br>去添加一些吧！</p></div>';return}
-  el.innerHTML=words.map(function(w,i){
-    return '<div class="word-item" onclick="toggleWord('+i+')" id="word-'+i+'"><span class="word-text">'+escHtml(w)+'</span><button class="btn-del" onclick="event.stopPropagation();deleteWord('+i+')" title="删除">&times;</button></div>';
-  }).join('');
+  var html='';
+  for(var i=0;i<words.length;i++){
+    html+='<div class="word-item" id="w-'+i+'" data-idx="'+i+'"><span>'+escHtml(words[i])+'</span><button class="btn-del" data-del="'+i+'">×</button></div>';
+  }
+  el.innerHTML=html;
+  // Use event delegation for better performance
+  el.onclick=function(e){
+    var t=e.target;
+    if(t.className==='btn-del'){var i=parseInt(t.getAttribute('data-del'));deleteWord(i);return}
+    var item=t.closest('.word-item');
+    if(item){item.classList.toggle('selected')}
+  };
 }
 function escHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 function addWord(){
-  var inp=document.getElementById('newWordInput');
-  var val=inp.value.trim();
+  var inp=document.getElementById('newWordInput'),val=inp.value.trim();
   if(!val)return;
-  words.push(val);
-  saveWords();
-  renderWordList();
-  updateStats();
-  inp.value='';
-  inp.focus();
-  prepareSession();
+  words.push(val);saveWords();renderWordList();updateStats();
+  inp.value='';inp.focus();prepareSession();
 }
 function bulkAdd(){
   var val=document.getElementById('bulkInput').value.trim();
   if(!val)return;
-  var newWords=val.split(/[,
-]+/).map(function(s){return s.trim()}).filter(function(s){return s.length>0});
-  words.push.apply(words,newWords);
-  saveWords();
-  renderWordList();
-  updateStats();
-  document.getElementById('bulkInput').value='';
-  prepareSession();
+  var nw=val.split(/[,\n]+/).map(function(s){return s.trim()}).filter(function(s){return s.length>0});
+  for(var i=0;i<nw.length;i++)words.push(nw[i]);
+  saveWords();renderWordList();updateStats();
+  document.getElementById('bulkInput').value='';prepareSession();
 }
 function deleteWord(i){words.splice(i,1);saveWords();renderWordList();updateStats();prepareSession()}
-function toggleWord(i){
-  var el=document.getElementById('word-'+i);
-  if(!el)return;
-  el.classList.toggle('selected');
-}
 
 function prepareSession(){
   var pool=words.slice();
-  if(pool.length===0)return;
+  if(pool.length===0){document.getElementById('currentWordDisplay').textContent='词库为空';return}
   shuffle(pool);
-  var count=parseInt(document.getElementById('countSelect').value);
-  currentSession=count>0?pool.slice(0,count):pool;
-  currentIndex=-1;
-  score=0;
-  total=0;
+  var cnt=parseInt(document.getElementById('countSelect').value);
+  currentSession=cnt>0?pool.slice(0,cnt):pool;
+  currentIndex=-1;score=0;total=0;
   updateProgress();
-  document.getElementById('currentWordDisplay').textContent='';
+  document.getElementById('currentWordDisplay').textContent='准备';
   document.getElementById('hintArea').textContent='';
   document.getElementById('answerInput').value='';
   document.getElementById('answerInput').className='';
   document.getElementById('progressText').textContent='共 '+currentSession.length+' 题';
-  document.getElementById('playBtn').textContent='▶';
-  document.getElementById('playBtn').classList.remove('playing');
+  var pb=document.getElementById('playBtn');pb.textContent='▶';pb.classList.remove('playing');
   nextWord();
 }
 function nextWord(){
   currentIndex++;
-  if(currentIndex>=currentSession.length){
-    finishSession();
-    return;
-  }
+  if(currentIndex>=currentSession.length){finishSession();return}
   currentWord=currentSession[currentIndex];
   document.getElementById('currentWordDisplay').textContent='•••';
   document.getElementById('hintArea').textContent=mode==='phrase'?currentWord.length+' 个字符':'';
@@ -365,7 +258,7 @@ function nextWord(){
   document.getElementById('answerInput').className='';
   document.getElementById('answerInput').focus();
   updateProgress();
-  setTimeout(function(){playAudio()},300);
+  setTimeout(function(){playAudio()},400);
 }
 function updateProgress(){
   var pct=currentIndex>=0?Math.round((currentIndex/currentSession.length)*100):0;
@@ -374,68 +267,51 @@ function updateProgress(){
 }
 function finishSession(){
   var pct=total>0?Math.round((score/total)*100):0;
-  document.getElementById('currentWordDisplay').textContent=pct>=80?'🎉 '+pct+'%':'💪 '+pct+'%';
+  document.getElementById('currentWordDisplay').textContent=(pct>=80?'🎉':'💪')+' '+pct+'%';
   document.getElementById('hintArea').textContent='正确 '+score+'/'+total;
   document.getElementById('progressFill').style.width='100%';
   document.getElementById('progressText').textContent='完成！';
-  document.getElementById('playBtn').textContent='↻';
-  document.getElementById('playBtn').classList.remove('playing');
+  var pb=document.getElementById('playBtn');pb.textContent='↻';pb.classList.remove('playing');
   history.unshift({date:new Date().toISOString(),score:score,total:total,pct:pct});
   if(history.length>50)history.length=50;
-  saveHistory();
-  renderHistory();
-  updateStats();
+  saveHistory();renderHistory();updateStats();
   showToast(pct>=60?'correct':'wrong',pct>=80?'太棒了！正确率 '+pct+'%':'正确率 '+pct+'%，继续加油！');
 }
 
 function playAudio(){
   if(isSpeaking){window.speechSynthesis.cancel();isSpeaking=false;document.getElementById('playBtn').classList.remove('playing');document.getElementById('playBtn').textContent='▶';return}
   if(!currentWord||currentIndex<0||currentIndex>=currentSession.length){
-    if(currentSession.length>0)prepareSession();
+    if(words.length>0)prepareSession();else{showToast('wrong','请先添加词条');}
     return;
   }
-  var utterance=new SpeechSynthesisUtterance(currentWord);
-  utterance.rate=speed;
-  utterance.lang='en-US';
-  if(/[\u4e00-\u9fff]/.test(currentWord))utterance.lang='zh-CN';
-  utterance.onstart=function(){isSpeaking=true;document.getElementById('playBtn').classList.add('playing');document.getElementById('playBtn').textContent='⏸'};
-  utterance.onend=function(){isSpeaking=false;document.getElementById('playBtn').classList.remove('playing');document.getElementById('playBtn').textContent='▶'};
-  utterance.onerror=function(){isSpeaking=false;document.getElementById('playBtn').classList.remove('playing');document.getElementById('playBtn').textContent='▶'};
+  var u=new SpeechSynthesisUtterance(currentWord);
+  u.rate=speed;u.volume=1;
+  u.lang=/[\u4e00-\u9fff]/.test(currentWord)?'zh-CN':'en-US';
+  u.onstart=function(){isSpeaking=true;var pb=document.getElementById('playBtn');pb.classList.add('playing');pb.textContent='⏸'};
+  u.onend=function(){isSpeaking=false;var pb=document.getElementById('playBtn');pb.classList.remove('playing');pb.textContent='▶'};
+  u.onerror=function(){isSpeaking=false;var pb=document.getElementById('playBtn');pb.classList.remove('playing');pb.textContent='▶';err('语音播放失败，请确认设备支持TTS')};
   window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(utterance);
+  window.speechSynthesis.speak(u);
 }
-function changeSpeed(delta){
-  speed=Math.round((speed+delta)*10)/10;
-  if(speed<0.3)speed=0.3;
-  if(speed>2.5)speed=2.5;
-  updateSpeedDisplay();
+function changeSpeed(d){
+  speed=Math.round((speed+d)*10)/10;
+  if(speed<0.3)speed=0.3;if(speed>2.5)speed=2.5;
+  document.getElementById('speedVal').textContent=speed.toFixed(1)+'x';
 }
-function updateSpeedDisplay(){document.getElementById('speedVal').textContent=speed.toFixed(1)+'x'}
 
 function checkAnswer(){
   if(!currentWord||currentIndex<0||currentIndex>=currentSession.length)return;
-  var inp=document.getElementById('answerInput');
-  var answer=inp.value.trim();
+  var inp=document.getElementById('answerInput'),answer=inp.value.trim();
   if(!answer)return;
   total++;
-  var isCorrect=answer.toLowerCase()===currentWord.toLowerCase();
-  if(isCorrect){
-    score++;
-    inp.className='correct';
-    showToast('correct','✓ 正确！');
-  }else{
-    inp.className='wrong';
-    document.getElementById('hintArea').textContent='正确答案: '+currentWord;
-    showToast('wrong','正确答案: '+currentWord);
-  }
-  setTimeout(function(){nextWord()},isCorrect?600:1500);
+  var ok=answer.toLowerCase()===currentWord.toLowerCase();
+  if(ok){score++;inp.className='correct';showToast('correct','✓ 正确！')}
+  else{inp.className='wrong';document.getElementById('hintArea').textContent='正确答案: '+currentWord;showToast('wrong','正确答案: '+currentWord)}
+  setTimeout(function(){nextWord()},ok?600:1500);
 }
 function showToast(type,msg){
-  var existing=document.querySelector('.result-toast');
-  if(existing)existing.remove();
-  var el=document.createElement('div');
-  el.className='result-toast '+type;
-  el.textContent=msg;
+  var ex=document.querySelector('.result-toast');if(ex)ex.remove();
+  var el=document.createElement('div');el.className='result-toast '+type;el.textContent=msg;
   document.body.appendChild(el);
   setTimeout(function(){el.remove()},type==='correct'?1200:2000);
 }
@@ -447,61 +323,58 @@ function switchTab(tab){
   document.getElementById('sidebarStats').style.display=tab==='stats'?'flex':'none';
 }
 function switchSidebarTab(tab){
-  var tabs=document.querySelectorAll('.sidebar .tabs button');
-  tabs[0].classList.toggle('active',tab==='list');
-  tabs[1].classList.toggle('active',tab==='add');
+  document.getElementById('tabListBtn').classList.toggle('active',tab==='list');
+  document.getElementById('tabAddBtn').classList.toggle('active',tab==='add');
   document.getElementById('panel-list').classList.toggle('active',tab==='list');
   document.getElementById('panel-add').classList.toggle('active',tab==='add');
 }
 function setMode(m){
   mode=m;
   var labels={word:'单词',phrase:'短语',random:'随机'};
-  var buttons=document.querySelectorAll('.mode-selector button');
-  for(var i=0;i<buttons.length;i++){
-    buttons[i].classList.toggle('active',buttons[i].textContent.indexOf(labels[m])!==-1);
-  }
+  document.getElementById('modeWord').classList.toggle('active',m==='word');
+  document.getElementById('modePhrase').classList.toggle('active',m==='phrase');
+  document.getElementById('modeRandom').classList.toggle('active',m==='random');
   prepareSession();
 }
 function selectAll(){
-  var items=document.querySelectorAll('.word-item');
-  var allSelected=document.querySelectorAll('.word-item.selected').length===items.length;
-  for(var i=0;i<items.length;i++){
-    items[i].classList.toggle('selected',!allSelected);
-  }
+  var items=document.querySelectorAll('.word-item'),all=document.querySelectorAll('.word-item.selected').length===items.length;
+  for(var i=0;i<items.length;i++)items[i].classList.toggle('selected',!all);
 }
 
 function renderHistory(){
   var el=document.getElementById('historyList');
-  if(history.length===0){el.innerHTML='<div class="empty-state" style="padding:20px"><div class="icon">📋</div><p>还没有练习记录</p></div>';return}
-  el.innerHTML=history.slice(0,20).map(function(h){
-    var d=new Date(h.date);
+  if(history.length===0){el.innerHTML='<div class="empty-state"><div class="icon">📋</div><p>还没有练习记录</p></div>';return}
+  var h='';
+  for(var i=0;i<Math.min(history.length,20);i++){
+    var d=new Date(history[i].date),h2=history[i];
     var ds=(d.getMonth()+1)+'/'+d.getDate()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
-    var cls=h.pct>=60?'good':'bad';
-    return '<div class="history-item"><span class="date">'+ds+'</span><span class="score '+cls+'">'+h.score+'/'+h.total+' ('+h.pct+'%)</span></div>';
-  }).join('');
+    var cls=h2.pct>=60?'good':'bad';
+    h+='<div class="history-item"><span class="date">'+ds+'</span><span class="score '+cls+'">'+h2.score+'/'+h2.total+' ('+h2.pct+'%)</span></div>';
+  }
+  el.innerHTML=h;
 }
 function updateStats(){
   document.getElementById('statTotal').textContent=history.length;
   document.getElementById('statWords').textContent=words.length;
   if(history.length>0){
-    var avg=Math.round(history.reduce(function(s,h){return s+h.pct},0)/history.length);
-    document.getElementById('statAvg').textContent=avg+'%';
-    var best=Math.max.apply(null,history.map(function(h){return h.pct}));
+    var sum=0;for(var i=0;i<history.length;i++)sum+=history[i].pct;
+    document.getElementById('statAvg').textContent=Math.round(sum/history.length)+'%';
+    var best=0;for(var i=0;i<history.length;i++)if(history[i].pct>best)best=history[i].pct;
     document.getElementById('statBest').textContent=best+'%';
   }
 }
-function clearHistory(){
-  if(confirm('确定清除所有练习记录？')){history=[];saveHistory();renderHistory();updateStats()}
-}
+function clearHistory(){if(confirm('确定清除所有练习记录？')){history=[];saveHistory();renderHistory();updateStats()}}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}}
 
-function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}}
-
+// Keyboard: Enter to check, Space to play
 document.addEventListener('keydown',function(e){
-  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){if(e.code==='Enter'){var inp=document.getElementById('answerInput');if(e.target===inp)checkAnswer()}return}
   if(e.code==='Space'){e.preventDefault();playAudio()}
 });
 
-init();
+// Start
+loadWords();
+})();
 </script>
 </body>
 </html>

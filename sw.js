@@ -1,12 +1,15 @@
-﻿const CACHE_NAME = 'dictation-v1';
+﻿const CACHE_NAME = 'dictation-v2';
 const ASSETS = [
   'index.html',
-  'manifest.json'
+  'manifest.json',
+  'words.json',
+  'icon-192.png',
+  'icon-512.png'
 ];
 
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS).catch(err => console.log('Cache addAll error:', err)))
   );
   self.skipWaiting();
 });
@@ -21,7 +24,16 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  if (e.request.method !== 'GET') return;
   e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request))
+    caches.match(e.request).then(cached => {
+      return cached || fetch(e.request).then(response => {
+        if (response.status === 200) {
+          var clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
+        }
+        return response;
+      });
+    })
   );
 });
